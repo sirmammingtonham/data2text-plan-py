@@ -9,8 +9,6 @@ import torchtext.vocab
 
 from onmt.io.DatasetBase import UNK_WORD, PAD_WORD, BOS_WORD, EOS_WORD
 from onmt.io.TextDataset import TextDataset
-from onmt.io.ImageDataset import ImageDataset
-from onmt.io.AudioDataset import AudioDataset
 
 
 def _getstate(self):
@@ -116,7 +114,7 @@ def get_num_features(data_type, corpus_file, side):
 def make_features(batch, side, data_type='text'):
     """
     Args:
-        batch (Variable): a batch of source or target data.
+        batch (Tensor): a batch of source or target data.
         side (str): for source or for target.
         data_type (str): type of the source input.
             Options are [text|img|audio].

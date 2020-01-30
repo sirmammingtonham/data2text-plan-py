@@ -11,9 +11,9 @@ import onmt.Models
 import onmt.modules
 from onmt.Models import NMTModel, MeanEncoder, RNNEncoder, PointerRNNDecoder,\
                         StdRNNDecoder, InputFeedRNNDecoder
-from onmt.modules import Embeddings, ImageEncoder, CopyGenerator, \
+from onmt.modules import Embeddings, CopyGenerator, \
                          TransformerEncoder, TransformerDecoder, \
-                         CNNEncoder, CNNDecoder, AudioEncoder
+                         CNNEncoder, CNNDecoder
 from onmt.Utils import use_gpu
 
 

@@ -11,10 +11,10 @@ DELIM = u"￨"
 
 inputs = []
 content_plans = []
-with codecs.open(CONTENT_PLAN, "r", "utf-8") as corpus_file:
+with open(CONTENT_PLAN, "r", encoding="utf-8") as corpus_file:
     for _, line in enumerate(corpus_file):
         content_plans.append(line.split())
-with codecs.open(SRC_FILE, "r", "utf-8") as corpus_file:
+with open(SRC_FILE, "r", encoding="utf-8") as corpus_file:
     for _, line in enumerate(corpus_file):
         inputs.append(line.split())
 
@@ -26,7 +26,7 @@ for i, input in enumerate(inputs):
     eval_output = []
     records = set()
     for record in content_plan:
-        output.append(input[int(record)].encode("utf-8"))
+        output.append(input[int(record)])
         elements = input[int(record)].split(DELIM)
         if elements[0].isdigit():
             record_type = elements[2]
@@ -36,12 +36,12 @@ for i, input in enumerate(inputs):
     outputs.append(" ".join(output))
     eval_outputs.append("\n".join(eval_output))
 
-output_file = open(CONTENT_PLAN_INTER, 'w')
+output_file = open(CONTENT_PLAN_INTER, 'w', encoding="utf-8")
 output_file.write("\n".join(outputs))
 output_file.write("\n")
 output_file.close()
 
-output_file = open(EVAL_OUTPUT, 'w')
+output_file = open(EVAL_OUTPUT, 'w', encoding="utf-8")
 output_file.write("\n")
 output_file.write("\n\n".join(eval_outputs))
 output_file.write("\n")

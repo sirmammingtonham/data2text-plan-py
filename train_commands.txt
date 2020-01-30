@@ -1,0 +1,8 @@
+python train.py -data preprocess/roto -save_model checkpoints/test/roto -encoder_type1 mean -decoder_type1 pointer -enc_layers1 1 -dec_layers1 1 -encoder_type2 brnn -decoder_type2 rnn -enc_layers2 2 -dec_layers2 2 -batch_size 5 -feat_merge mlp -feat_vec_size 600 -word_vec_size 600 -rnn_size 600 -seed 1234 -start_checkpoint_at 4 -epochs 25 -optim adagrad -learning_rate 0.15 -adagrad_accumulator_init 0.1 -report_every 100 -copy_attn -truncated_decoder 100 -gpuid 0 -attn_hidden 64 -reuse_copy_attn -start_decay_at 4 -learning_rate_decay 0.97 -valid_batch_size 5
+
+
+python translate.py -model checkpoints/roto_stage1_acc_73.0939_ppl_3.0744_e14.pt -src1 rotowire/inf_src_valid.txt -output gen/roto_stage1_test-beam5_gens.txt -batch_size 10 -max_length 80 -gpu 0 -min_length 35 -stage1
+
+python scripts/create_content_plan_from_index.py rotowire/inf_src_valid.txt gen/roto_stage1_test-beam5_gens.txt transform_gen/roto_stage1_test-beam5_gens.h5-tuples.txt  gen/roto_stage1_inter_test-beam5_gens.txt
+
+python translate.py -model checkpoints/roto_stage1_acc_73.0939_ppl_3.0744_e14.pt -model2 checkpoints/roto_stage2_acc_58.7370_ppl_7.5918_e23.pt -src1 rotowire/inf_src_valid.txt -tgt1 gen/roto_stage1_test-beam5_gens.txt -src2 gen/roto_stage1_inter_test-beam5_gens.txt -output gen/roto_stage2_test-beam5_gens.txt -batch_size 10 -max_length 850 -min_length 150 -gpu 0

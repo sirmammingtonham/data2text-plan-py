@@ -35,7 +35,7 @@ class TranslationBuilder(object):
         tokens = []
         for tok in pred:
             if stage1:
-                tokens.append(tok)
+                tokens.append(tok.data.cpu().numpy())
             else:
                 if tok < len(vocab):
                     tokens.append(vocab.itos[tok])
